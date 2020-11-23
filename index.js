@@ -5,8 +5,8 @@ const ejs = require('ejs');
 const multer = require('multer');
 const path = require('path');
 
-
 const homeroute = require('./routes/homeroute');
+const adminroute = require('./routes/adminroute');
 
 const app = express();
 
@@ -15,9 +15,7 @@ app.use(bodyParser.urlencoded({extended:true}));
 app.use(express.static("public"));
 
 app.use('/home',homeroute);
-
-
-
+app.use('./admin',adminroute);
 
 mongoose.connect("mongodb://localhost:27017/BlueBirdDB",{useNewUrlParser:true});
 mongoose.set("useCreateIndex",true);
