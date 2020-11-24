@@ -1,5 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const session = require('express-session');
 const mongoose = require('mongoose');
 const ejs = require('ejs');
 const multer = require('multer');
@@ -15,7 +16,7 @@ app.use(bodyParser.urlencoded({extended:true}));
 app.use(express.static("public"));
 
 app.use('/home',homeroute);
-app.use('./admin',adminroute);
+app.use('/admin',adminroute);
 
 mongoose.connect("mongodb://localhost:27017/BlueBirdDB",{useNewUrlParser:true});
 mongoose.set("useCreateIndex",true);

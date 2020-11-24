@@ -11,4 +11,4 @@ const listingSchema = new Schema({
 
 const listings = mongoose.model("listings",listingSchema);
 
-module.exports = user;
+module.exports = listings;
