@@ -6,6 +6,8 @@ const ejs = require('ejs');
 const multer = require('multer');
 const path = require('path');
 
+const listings = require('./models/listing');
+
 const homeroute = require('./routes/homeroute');
 const adminroute = require('./routes/adminroute');
 
@@ -22,7 +24,13 @@ mongoose.connect("mongodb://localhost:27017/BlueBirdDB",{useNewUrlParser:true});
 mongoose.set("useCreateIndex",true);
 
 app.get("/",function(req,res){
-  res.render("home");
+  listings.find({},function(err,totalItems){
+    if (err) {
+      console.log(err);
+    }else {
+      res.render("home",{listings : totalItems});
+    }
+  });
 })
 
 app.listen(3000,err => {

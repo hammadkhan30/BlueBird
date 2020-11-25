@@ -32,7 +32,7 @@ router
   })(req,res,next);
 })
 
-router.get("/admin/signout",function(req,res){
+router.get("/signout",function(req,res){
   req.logout();
   res.redirect('/admin')
 })
@@ -98,8 +98,32 @@ router
   });
 })
 
-router.get("/home/",ensureAuthenticated,function(req,res){
+router
+.get("/home/viewreg",ensureAuthenticated,function(req,res){
   res.render("");
+})
+
+router
+.get("/home/viewlisting",function(req,res){
+  listings.find({},function(err,founditems){
+    if (err) {
+      console.log(err);
+    }else {
+      res.render("viewlisting",{listings : founditems});
+    }
+  });
+})
+router
+.get("/home/viewlisting/:id",function(req,res){
+  var id = req.params.id;
+  listings.findOneAndRemove({_id: id},function(err){
+    if (err) {
+      return console.log(err);
+    }else {
+      console.log("record removed");
+    }
+  });
+  res.redirect("/admin/home/viewlisting");
 })
 
 module.exports = router;

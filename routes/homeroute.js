@@ -2,7 +2,12 @@ const express = require('express');
 const users = require('../models/user');
 const multer = require('multer');
 const path = require('path');
+
+const listings = require('../models/listing');
+
 let router = express.Router();
+
+
 
 const Storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -20,7 +25,13 @@ const upload = multer({
 
 router
 .get("",function(req,res){
-  res.render("home");
+  listings.find({},function(err,totalItems){
+    if (err) {
+      console.log(err);
+    }else {
+      res.render("home",{listings : totalItems});
+    }
+  });
 })
 
 router
