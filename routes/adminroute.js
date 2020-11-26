@@ -6,6 +6,7 @@ const passportLocalMongoose = require('passport-local-mongoose');
 
 const listings = require('../models/listing');
 const admins = require("../models/admin");
+const users = require("../models/user");
 const {ensureAuthenticated} = require('../config/auth');
 
 let router = express.Router();
@@ -100,7 +101,23 @@ router
 
 router
 .get("/home/viewreg",ensureAuthenticated,function(req,res){
-  res.render("");
+  users.find({},function(err,founditems){
+    if (err) {
+      console.log(err);
+    }else {
+      res.render("viewreg",{users : founditems});
+    }
+  });
+})
+router
+.get("/home/viewreg/:name",function(req,res){
+  var title = req.params.name +".pdf";
+  var path = __dirname + "/uploads/" + title;
+  res.download(path,title,function(err){
+    if (err) {
+      console.log(err);
+    }
+  });
 })
 
 router

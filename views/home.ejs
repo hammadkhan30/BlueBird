@@ -29,8 +29,8 @@
               class="collapse navbar-collapse" id="navcol-1">
               <ul class="nav navbar-nav ml-auto">
                   <li class="nav-item"><a class="nav-link active" href="/home">Home</a></li>
-                  <li class="nav-item"><a class="nav-link active">About Us</a></li>
-                  <li class="nav-item"><a class="nav-link active">New Listings</a></li>
+                  <li class="nav-item"><a class="nav-link active" href="#about">About Us</a></li>
+                  <li class="nav-item"><a class="nav-link active" href="#listing">New Listings</a></li>
                   <li class="nav-item"><a class="nav-link active" href="/home/register">Register</a></li>
                   <li class="nav-item"><a class="nav-link" href="/home/contactUs" style="color: rgba(0,0,0,0.5);">Contact Us</a></li>
               </ul>
@@ -43,7 +43,7 @@
                 <h2>BLueBird Consultants&nbsp;</h2>
                 <p>BlueBird Consultants welcomes you to core&nbsp;<br>of manpower expertise defining human source&nbsp;<br>segment as the most important portion of Business.&nbsp;</p>
             </div><a href="#" style="color: rgb(0,0,0);">&nbsp;<strong>Postings</strong></a><a href="#" style="color: rgb(0,0,0);">&nbsp;<strong>Postings</strong></a></section>
-        <section class="clean-block about-us">
+        <section id="about" class="clean-block about-us">
             <div class="container">
                 <div class="block-heading">
                     <h2 class="text-info">About Us</h2>
@@ -51,10 +51,10 @@
                 </div>
             </div>
         </section>
-        <section class="clean-block slider dark">
+        <section id="listing" class="clean-block slider dark">
             <div class="container">
                 <div class="block-heading">
-                    <h2 class="text-info">Listings</h2>
+                    <h2  class="text-info">Listings</h2>
                     <p>Latest jobs listing are available below.</p>
                 </div>
                 <% for (let i=listings.length-1; i>=0; i--) {%>

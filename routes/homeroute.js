@@ -2,25 +2,24 @@ const express = require('express');
 const users = require('../models/user');
 const multer = require('multer');
 const path = require('path');
+const upload = require('express-fileupload');
 
 const listings = require('../models/listing');
 
 let router = express.Router();
 
+router.use(upload());
 
-
-const Storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, '../public/uploads')
-  },
-  filename:(req,file,cb)=>{
-    cb(null,file.fieldname+"_"+Date.now()+path.extname(file.originalname));
-  }
-})
-
-const upload = multer({
-  storage : Storage
-}).single('pdf');
+// const storage = multer.diskStorage({
+//   destination : function(req,file,cb){
+//     cb(null,'../public/uploads/');
+//   },
+//   filename : function(req,file,cb){
+//     cb(null,file.originalname + '-' + Date.now() + '.pdf');
+//   }
+// });
+//
+// const upload = multer({storage:storage});
 
 
 router
@@ -39,24 +38,37 @@ router
   res.render("contact");
 })
 
+
+
 router
 .get("/register",function(req,res){
   res.render("register");
 })
-.post("/register",upload,function(req,res){
+.post("/register",function(req,res){
+  var loc = __dirname + "/uploads/" + req.body.name + ".pdf";
   const newUser = new users({
     name : req.body.name,
     dateofbirth : req.body.dob,
     email : req.body.email,
-    pdf : req.file,
+    pdf : loc
   });
   newUser.save(function(err){
     if (err) {
       console.log(err);
-    }else {
-      res.render("register");
     }
   });
+  if (req.files) {
+    var file = req.files.pdf
+    var filename = req.body.name + ".pdf"
+
+    file.mv('./routes/uploads/' + filename,function(err){
+      if (err) {
+        console.log(err);
+      }else {
+        res.render("register");
+      }
+    })
+  }
 })
 
 module.exports = router;
