@@ -20,7 +20,7 @@ app.use(express.static("public"));
 app.use('/home',homeroute);
 app.use('/admin',adminroute);
 
-mongoose.connect("mongodb://localhost:27017/BlueBirdDB",{useNewUrlParser:true});
+mongoose.connect("",{useNewUrlParser:true});
 mongoose.set("useCreateIndex",true);
 
 app.get("/",function(req,res){
